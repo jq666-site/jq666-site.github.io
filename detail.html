@@ -9,7 +9,7 @@ title: "Detail"
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>文档详情 - {{ site.title | default: "My GitHub Site" }}</title>
-
+  <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet" />
   <style>
     :root {
       --bg: #050816;
@@ -471,6 +471,13 @@ title: "Detail"
     document.addEventListener("DOMContentLoaded", () => {
       applyThemeFromStorage();
       setupThemeToggle();
+
+      // 让详情内容使用 Quill 的内容样式（列表、标题等表现更好）
+      const contentEl = document.getElementById("doc-content");
+      if (contentEl && !contentEl.classList.contains("ql-editor")) {
+        contentEl.classList.add("ql-editor");
+      }
+
       loadDetail();
     });
   </script>

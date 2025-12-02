@@ -25,6 +25,16 @@ title: "Home"
       --transition: 0.25s ease;
     }
 
+    /* 浅色主题覆盖 */
+    :root[data-theme="light"] {
+      --bg: #f3f4f6;
+      --bg-card: rgba(255, 255, 255, 0.92);
+      --text: #111827;
+      --muted: #6b7280;
+      --border: rgba(156, 163, 175, 0.6);
+      --shadow-soft: 0 18px 32px rgba(15, 23, 42, 0.18);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -44,6 +54,7 @@ title: "Home"
       align-items: center;
       justify-content: center;
       padding: 32px 16px;
+      transition: background var(--transition), color var(--transition);
     }
 
     .shell {
@@ -57,6 +68,12 @@ title: "Home"
       box-shadow: var(--shadow-soft);
       position: relative;
       overflow: hidden;
+    }
+
+    :root[data-theme="light"] .shell {
+      background:
+        linear-gradient(135deg, rgba(209, 213, 219, 0.6), transparent),
+        radial-gradient(circle at top, rgba(243, 244, 246, 0.98), #e5e7eb);
     }
 
     .shell::before {
@@ -78,6 +95,12 @@ title: "Home"
       position: relative;
       overflow: hidden;
       border: 1px solid rgba(148, 163, 184, 0.3);
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    :root[data-theme="light"] .card {
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.98), rgba(249, 250, 251, 1));
+      border-color: rgba(209, 213, 219, 0.9);
     }
 
     /* 顶部导航 */
@@ -136,30 +159,51 @@ title: "Home"
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
       font-size: 13px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
-    .nav-links a {
+    .nav-links a,
+    .nav-links button {
       color: var(--muted);
       text-decoration: none;
       padding: 6px 10px;
       border-radius: 999px;
       border: 1px solid transparent;
       transition: var(--transition);
+      background: transparent;
+      cursor: pointer;
+      font-size: 13px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
 
-    .nav-links a:hover {
+    .nav-links a:hover,
+    .nav-links button:hover {
       color: var(--text);
       border-color: rgba(148, 163, 184, 0.6);
       background: radial-gradient(circle at top, rgba(15, 23, 42, .9), rgba(15, 23, 42, 1));
     }
 
-    .nav-links .nav-primary {
+    :root[data-theme="light"] .nav-links a:hover,
+    :root[data-theme="light"] .nav-links button:hover {
+      background: rgba(243, 244, 246, 0.96);
+    }
+
+    .nav-primary-btn {
       color: var(--text);
       border-color: rgba(56, 189, 248, 0.65);
       background: radial-gradient(circle at 0 0, rgba(56, 189, 248, .18), rgba(15, 23, 42, 0.96));
-      box-shadow: 0 0 18px rgba(56, 189, 248, 0.35);
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.35);
+    }
+
+    :root[data-theme="light"] .nav-primary-btn {
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, .22), #0f172a);
+      color: #e5f3ff;
     }
 
     /* 主区域布局 */
@@ -184,7 +228,6 @@ title: "Home"
       .nav-links {
         align-self: stretch;
         justify-content: flex-start;
-        flex-wrap: wrap;
       }
     }
 
@@ -229,6 +272,11 @@ title: "Home"
       color: var(--muted);
     }
 
+    :root[data-theme="light"] .chip {
+      background: rgba(249, 250, 251, 0.96);
+      border-color: rgba(209, 213, 219, 0.9);
+    }
+
     .chip-dot {
       width: 6px;
       height: 6px;
@@ -243,6 +291,12 @@ title: "Home"
       border-radius: var(--radius-xl);
       background: radial-gradient(circle at top left, rgba(15, 23, 42, .9), rgba(15, 23, 42, 1));
       border: 1px solid var(--border);
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    :root[data-theme="light"] .section {
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.98), rgba(249, 250, 251, 1));
+      border-color: rgba(209, 213, 219, 0.9);
     }
 
     .section-header {
@@ -305,6 +359,11 @@ title: "Home"
       white-space: nowrap;
     }
 
+    :root[data-theme="light"] .project-tag {
+      background: rgba(219, 234, 254, 0.9);
+      color: #1d4ed8;
+    }
+
     .blog-list {
       list-style: none;
       display: flex;
@@ -338,6 +397,7 @@ title: "Home"
       padding: 14px 14px 12px;
       position: relative;
       overflow: hidden;
+      transition: background var(--transition), border-color var(--transition);
     }
 
     .side-card::before {
@@ -352,6 +412,14 @@ title: "Home"
       z-index: -1;
     }
 
+    :root[data-theme="light"] .side-card {
+      background:
+        radial-gradient(circle at 20% 10%, rgba(191, 219, 254, .45), transparent 55%),
+        radial-gradient(circle at 80% 90%, rgba(233, 213, 255, .6), transparent 55%),
+        #f9fafb;
+      border-color: rgba(209, 213, 219, 0.95);
+    }
+
     .badge {
       display: inline-flex;
       align-items: center;
@@ -363,6 +431,11 @@ title: "Home"
       font-size: 11px;
       margin-bottom: 6px;
       color: #bfdbfe;
+    }
+
+    :root[data-theme="light"] .badge {
+      background: rgba(15, 23, 42, 0.95);
+      color: #e0f2fe;
     }
 
     .badge-pulse {
@@ -416,6 +489,11 @@ title: "Home"
       transition: var(--transition);
     }
 
+    :root[data-theme="light"] .social-links a {
+      background: rgba(249, 250, 251, 0.98);
+      border-color: rgba(209, 213, 219, 0.95);
+    }
+
     .social-links a:hover {
       border-color: rgba(56, 189, 248, 0.7);
       color: #e0f2fe;
@@ -441,7 +519,7 @@ title: "Home"
       color: var(--accent);
     }
 
-    /* 新增：API 状态 + 文档表单样式 */
+    /* API 状态 */
 
     .api-status-text {
       font-size: 11px;
@@ -457,10 +535,82 @@ title: "Home"
       color: #fb7185;
     }
 
+    /* 弹窗 */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.75);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 40;
+      padding: 16px;
+    }
+
+    :root[data-theme="light"] .modal-backdrop {
+      background: rgba(15, 23, 42, 0.45);
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 520px;
+      border-radius: 20px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 1));
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 14px;
+      position: relative;
+    }
+
+    :root[data-theme="light"] .modal-card {
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.98), #f3f4f6);
+      border-color: rgba(209, 213, 219, 0.95);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .modal-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .modal-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .modal-close {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: transparent;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      transition: var(--transition);
+    }
+
+    .modal-close:hover {
+      border-color: rgba(248, 113, 113, 0.85);
+      color: #fecaca;
+      transform: translateY(-1px);
+    }
+
     .docs-form {
-      margin-top: 10px;
-      border-top: 1px dashed rgba(148, 163, 184, 0.4);
-      padding-top: 10px;
+      margin-top: 4px;
+      padding-top: 8px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -492,8 +642,14 @@ title: "Home"
       transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
     }
 
+    :root[data-theme="light"] .docs-input,
+    :root[data-theme="light"] .docs-textarea {
+      background: rgba(249, 250, 251, 0.98);
+      border-color: rgba(209, 213, 219, 0.9);
+    }
+
     .docs-textarea {
-      min-height: 64px;
+      min-height: 80px;
     }
 
     .docs-input:focus,
@@ -501,6 +657,11 @@ title: "Home"
       border-color: rgba(56, 189, 248, 0.8);
       box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5);
       background: rgba(15, 23, 42, 0.98);
+    }
+
+    :root[data-theme="light"] .docs-input:focus,
+    :root[data-theme="light"] .docs-textarea:focus {
+      background: #ffffff;
     }
 
     .docs-submit {
@@ -513,6 +674,12 @@ title: "Home"
       font-size: 12px;
       cursor: pointer;
       transition: var(--transition);
+      margin-top: 2px;
+    }
+
+    :root[data-theme="light"] .docs-submit {
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, .25), #0f172a);
+      color: #e5f3ff;
     }
 
     .docs-submit:hover {
@@ -532,9 +699,13 @@ title: "Home"
     .docs-form-msg-error {
       color: #fb7185;
     }
+
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
-<body>
+<body id="top">
   <div class="shell">
     <div class="card">
       <!-- 顶部导航 -->
@@ -553,15 +724,21 @@ title: "Home"
           </div>
         </div>
         <nav class="nav-links">
-          <a href="#projects">项目</a>
-          <a href="#docs">技术文档</a>
-          <a href="#blog">文章</a>
-          <a href="#about" class="nav-primary">关于我</a>
+          <a href="#top">首页</a>
+          <a href="https://github.com/{{ site.github_username | default: 'jq666-site' }}" target="_blank" rel="noopener">
+            GitHub 主页
+          </a>
+          <button type="button" id="theme-toggle">
+            主题切换
+          </button>
+          <button type="button" id="nav-write-doc" class="nav-primary-btn">
+            发文档
+          </button>
         </nav>
       </header>
 
       <main class="main">
-        <!-- 左侧：简介 + 项目 + 博客 -->
+        <!-- 左侧：简介 + Tech Docs + Projects + Blog -->
         <section>
           <h1 class="hero-title">
             你好，我是 <span class="highlight">JQ</span>，
@@ -587,7 +764,7 @@ title: "Home"
             </div>
           </div>
 
-          <!-- 技术文档区块：从 /api/docs 加载 + 提交到 /api/docs -->
+          <!-- 技术文档区块：从 /api/docs 加载 -->
           <section id="docs" class="section">
             <div class="section-header">
               <div class="section-title">Tech Docs</div>
@@ -601,23 +778,6 @@ title: "Home"
                 <span>正在准备加载技术文档…</span>
               </li>
             </ul>
-
-            <form class="docs-form" id="doc-form">
-              <div class="docs-form-row">
-                <label class="docs-label" for="doc-title">标题</label>
-                <input id="doc-title" class="docs-input" type="text" placeholder="例如：Cloudflare Workers + KV 轻量后端实践" />
-              </div>
-              <div class="docs-form-row">
-                <label class="docs-label" for="doc-content">内容</label>
-                <textarea id="doc-content" class="docs-textarea" placeholder="写一点技术笔记，最终会通过 /api/docs 保存到 KV。"></textarea>
-              </div>
-              <div class="docs-form-row">
-                <label class="docs-label" for="doc-tags">标签（可选，英文逗号分隔）</label>
-                <input id="doc-tags" class="docs-input" type="text" placeholder="例如：cloudflare, worker, kv" />
-              </div>
-              <button type="submit" class="docs-submit">保存到云端</button>
-              <div class="docs-form-msg" id="doc-form-msg"></div>
-            </form>
           </section>
 
           <!-- 项目区块 -->
@@ -640,16 +800,6 @@ title: "Home"
                 </div>
                 <span class="project-tag">Jekyll · Pages</span>
               </li>
-              <!--
-              下面可以继续加自己的项目：
-              <li class="project-item">
-                <div class="project-main">
-                  <div class="project-name">项目名字</div>
-                  <div class="project-desc">一句话描述项目用途 / 技术栈。</div>
-                </div>
-                <span class="project-tag">标签</span>
-              </li>
-              -->
             </ul>
           </section>
 
@@ -711,9 +861,6 @@ title: "Home"
             <div class="social-links">
               <!-- 改成你自己的链接 -->
               <a href="https://github.com/{{ site.github_username | default: 'jq666-site' }}" target="_blank" rel="noopener">GitHub</a>
-              <!-- 例如：个人博客 / 掘金 / B站 / Twitter 等 -->
-              <!-- <a href="https://your-blog.com" target="_blank" rel="noopener">Blog</a> -->
-              <!-- <a href="mailto:you@example.com">Email</a> -->
             </div>
           </div>
 
@@ -734,8 +881,44 @@ title: "Home"
     </div>
   </div>
 
+  <!-- 发文档弹窗 -->
+  <div id="doc-modal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">发一篇技术文档</div>
+        <button type="button" class="modal-close" id="doc-modal-close" aria-label="关闭">
+          ✕
+        </button>
+      </div>
+      <div class="modal-sub">
+        内容会通过 <code>/api/docs</code> 保存到 Cloudflare KV。提交前需要输入固定验证码（在后端新接口配置）。
+      </div>
+      <form class="docs-form" id="doc-modal-form">
+        <div class="docs-form-row">
+          <label class="docs-label" for="doc-modal-title">标题</label>
+          <input id="doc-modal-title" class="docs-input" type="text" placeholder="例如：Cloudflare Workers + KV 轻量后端实践" />
+        </div>
+        <div class="docs-form-row">
+          <label class="docs-label" for="doc-modal-content">内容</label>
+          <textarea id="doc-modal-content" class="docs-textarea" placeholder="写一点技术笔记，最终会保存到 KV。"></textarea>
+        </div>
+        <div class="docs-form-row">
+          <label class="docs-label" for="doc-modal-tags">标签（可选，英文逗号分隔）</label>
+          <input id="doc-modal-tags" class="docs-input" type="text" placeholder="例如：cloudflare, worker, kv" />
+        </div>
+        <div class="docs-form-row">
+          <label class="docs-label" for="doc-modal-code">验证码</label>
+          <input id="doc-modal-code" class="docs-input" type="password" placeholder="请输入后台约定的验证码" />
+        </div>
+        <button type="submit" class="docs-submit">提交文档</button>
+        <div class="docs-form-msg" id="doc-modal-msg"></div>
+      </form>
+    </div>
+  </div>
+
   <script>
-    // 这里改成你的 Cloudflare Worker 基础地址（不要带最后的 /）
+    // ===== 配置：Cloudflare Worker 基础地址 =====
+    // 改成你的 Worker 地址（不要带最后的 /）
     // 例如： const API_BASE = "";
     const API_BASE = "https://lingering-resonance-6555.aa1348769445.workers.dev";
 
@@ -744,10 +927,46 @@ title: "Home"
       return API_BASE.replace(/\/+$/, "") + path;
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      initApiStatus();
-      initDocsSection();
-    });
+    // ===== 主题切换 =====
+    const THEME_STORAGE_KEY = "site-theme";
+
+    function applyTheme(theme) {
+      const root = document.documentElement;
+      const validTheme = theme === "light" ? "light" : "dark";
+      root.setAttribute("data-theme", validTheme);
+
+      const btn = document.getElementById("theme-toggle");
+      if (btn) {
+        btn.textContent = validTheme === "dark" ? "主题切换 · 暗" : "主题切换 · 亮";
+      }
+
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, validTheme);
+      } catch (_) {}
+    }
+
+    function initTheme() {
+      let saved = "dark";
+      try {
+        const stored = localStorage.getItem(THEME_STORAGE_KEY);
+        if (stored === "light" || stored === "dark") {
+          saved = stored;
+        } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
+          saved = "light";
+        }
+      } catch (_) {}
+      applyTheme(saved);
+
+      const btn = document.getElementById("theme-toggle");
+      if (btn) {
+        btn.addEventListener("click", () => {
+          const current = document.documentElement.getAttribute("data-theme") || "dark";
+          applyTheme(current === "dark" ? "light" : "dark");
+        });
+      }
+    }
+
+    // ===== API 状态 & 文档列表 =====
 
     async function initApiStatus() {
       const statusEl = document.getElementById("api-status");
@@ -779,14 +998,13 @@ title: "Home"
 
     function initDocsSection() {
       const listEl = document.getElementById("docs-list");
-      const formEl = document.getElementById("doc-form");
       const metaEl = document.getElementById("docs-section-meta");
 
       if (!listEl) return;
 
       if (!API_BASE) {
         if (metaEl) {
-          metaEl.textContent = "云端技术文档 · API_BASE 未配置，仅展示静态表单";
+          metaEl.textContent = "云端技术文档 · API_BASE 未配置，仅展示静态说明";
         }
         listEl.innerHTML = '<li class="blog-item"><span>未配置 API_BASE，暂不从云端加载技术文档。</span></li>';
         return;
@@ -797,10 +1015,6 @@ title: "Home"
       }
 
       loadDocs();
-
-      if (formEl) {
-        formEl.addEventListener("submit", onDocFormSubmit);
-      }
     }
 
     async function loadDocs() {
@@ -821,7 +1035,7 @@ title: "Home"
         const items = Array.isArray(data.items) ? data.items : [];
 
         if (!items.length) {
-          listEl.innerHTML = '<li class="blog-item"><span>暂时还没有技术文档，可以在下面的表单里新建一篇。</span></li>';
+          listEl.innerHTML = '<li class="blog-item"><span>暂时还没有技术文档，可以通过右上角「发文档」来创建。</span></li>';
           return;
         }
 
@@ -859,12 +1073,35 @@ title: "Home"
       }
     }
 
-    async function onDocFormSubmit(event) {
+    // ===== 发文档弹窗 =====
+
+    function openDocModal() {
+      const modal = document.getElementById("doc-modal");
+      if (!modal) return;
+      modal.classList.remove("hidden");
+
+      // 小体验：弹出时把标题 focus
+      setTimeout(() => {
+        const titleEl = document.getElementById("doc-modal-title");
+        if (titleEl) {
+          titleEl.focus();
+        }
+      }, 10);
+    }
+
+    function closeDocModal() {
+      const modal = document.getElementById("doc-modal");
+      if (!modal) return;
+      modal.classList.add("hidden");
+    }
+
+    async function onDocModalSubmit(event) {
       event.preventDefault();
-      const titleEl = document.getElementById("doc-title");
-      const contentEl = document.getElementById("doc-content");
-      const tagsEl = document.getElementById("doc-tags");
-      const msgEl = document.getElementById("doc-form-msg");
+      const titleEl = document.getElementById("doc-modal-title");
+      const contentEl = document.getElementById("doc-modal-content");
+      const tagsEl = document.getElementById("doc-modal-tags");
+      const codeEl = document.getElementById("doc-modal-code");
+      const msgEl = document.getElementById("doc-modal-msg");
 
       if (!API_BASE) {
         if (msgEl) {
@@ -877,10 +1114,19 @@ title: "Home"
       const title = (titleEl.value || "").trim();
       const content = (contentEl.value || "").trim();
       const rawTags = (tagsEl.value || "").trim();
+      const code = (codeEl.value || "").trim();
 
       if (!title || !content) {
         if (msgEl) {
           msgEl.textContent = "标题和内容不能为空。";
+          msgEl.className = "docs-form-msg docs-form-msg-error";
+        }
+        return;
+      }
+
+      if (!code) {
+        if (msgEl) {
+          msgEl.textContent = "请填写验证码。";
           msgEl.className = "docs-form-msg docs-form-msg-error";
         }
         return;
@@ -906,6 +1152,7 @@ title: "Home"
             title,
             content,
             tags,
+            code, // 验证码字段，后端自己校验
           }),
         });
 
@@ -924,9 +1171,16 @@ title: "Home"
         titleEl.value = "";
         contentEl.value = "";
         tagsEl.value = "";
+        codeEl.value = "";
 
-        // 重新加载文档列表
+        // 刷新列表
         loadDocs();
+
+        // 过一会自动关闭
+        setTimeout(() => {
+          closeDocModal();
+          if (msgEl) msgEl.textContent = "";
+        }, 600);
       } catch (err) {
         if (msgEl) {
           msgEl.textContent = "提交失败：" + (err.message || "未知错误");
@@ -934,6 +1188,41 @@ title: "Home"
         }
       }
     }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initTheme();
+      initApiStatus();
+      initDocsSection();
+
+      const writeBtn = document.getElementById("nav-write-doc");
+      if (writeBtn) {
+        writeBtn.addEventListener("click", openDocModal);
+      }
+
+      const closeBtn = document.getElementById("doc-modal-close");
+      const modal = document.getElementById("doc-modal");
+      if (closeBtn) closeBtn.addEventListener("click", closeDocModal);
+      if (modal) {
+        // 点击遮罩空白区域关闭
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            closeDocModal();
+          }
+        });
+      }
+
+      const form = document.getElementById("doc-modal-form");
+      if (form) {
+        form.addEventListener("submit", onDocModalSubmit);
+      }
+
+      // Esc 关闭
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeDocModal();
+        }
+      });
+    });
   </script>
 </body>
 </html>

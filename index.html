@@ -1,18 +1,607 @@
-<!DOCTYPE html>
+---
+layout: null
+title: "Home"
+---
+
+<!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <title>我的 GitHub 主页</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{{ site.title | default: "My GitHub Site" }}</title>
+  <meta name="description" content="{{ site.description | default: 'A simple GitHub Pages site.' }}">
+
   <style>
+    :root {
+      --bg: #050816;
+      --bg-card: rgba(15, 23, 42, 0.85);
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.18);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: rgba(148, 163, 184, 0.35);
+      --radius-xl: 18px;
+      --shadow-soft: 0 22px 45px rgba(15, 23, 42, 0.75);
+      --transition: 0.25s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-      text-align: center;
-      padding-top: 80px;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "PingFang SC", "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, .18), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(129, 140, 248, .18), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 980px;
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(148, 163, 184, 0.25), transparent),
+        radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.96));
+      padding: 1px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: -120px;
+      opacity: .18;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(56, 189, 248, .4), transparent 55%),
+        radial-gradient(circle at 80% 100%, rgba(147, 51, 234, .42), transparent 55%);
+      filter: blur(38px);
+      z-index: -1;
+    }
+
+    .card {
+      border-radius: 24px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
+      padding: 22px 22px 26px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    /* 顶部导航 */
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 10%, #e5e7eb, #64748b);
+      border: 2px solid rgba(148, 163, 184, 0.65);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      color: #0f172a;
+    }
+
+    .brand-text-main {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #4ade80;
+      box-shadow: 0 0 0 5px rgba(74, 222, 128, 0.18);
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      border-color: rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, .9), rgba(15, 23, 42, 1));
+    }
+
+    .nav-links .nav-primary {
+      color: var(--text);
+      border-color: rgba(56, 189, 248, 0.65);
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, .18), rgba(15, 23, 42, 0.96));
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.35);
+    }
+
+    /* 主区域布局 */
+
+    .main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 22px;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        padding: 18px 16px 22px;
+      }
+      .main {
+        grid-template-columns: minmax(0,1fr);
+      }
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-links {
+        align-self: stretch;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+    }
+
+    /* 左侧：介绍 + 区块 */
+
+    .hero-title {
+      font-size: 26px;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .hero-title span.highlight {
+      background: linear-gradient(135deg, #38bdf8, #a855f7, #f97316);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 460px;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, .96), rgba(15, 23, 42, 1));
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .chip-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    .section {
+      margin-bottom: 16px;
+      padding: 12px 12px 10px;
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, .9), rgba(15, 23, 42, 1));
+      border: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #9ca3ff;
+    }
+
+    .section-meta {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .project-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .project-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .project-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .project-name {
+      font-weight: 500;
+    }
+
+    .project-desc {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .project-tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.6);
+      color: #bae6fd;
+      background: rgba(8, 47, 73, 0.7);
+      white-space: nowrap;
+    }
+
+    .blog-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .blog-item a {
+      color: var(--text);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .blog-item a:hover {
+      color: var(--accent);
+    }
+
+    .blog-meta {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* 右侧卡片区 */
+
+    .side-card {
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background:
+        radial-gradient(circle at top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.98));
+      padding: 14px 14px 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .side-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(56, 189, 248, .15), transparent 55%),
+        radial-gradient(circle at 80% 90%, rgba(129, 140, 248, .22), transparent 55%);
+      opacity: 0.7;
+      filter: blur(24px);
+      z-index: -1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 11px;
+      margin-bottom: 10px;
+      color: #bfdbfe;
+    }
+
+    .badge-pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.8);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.8);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+      }
+    }
+
+    .side-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .side-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .social-links a {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: var(--text);
+      text-decoration: none;
+      background: rgba(15, 23, 42, 0.95);
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      border-color: rgba(56, 189, 248, 0.7);
+      color: #e0f2fe;
+      transform: translateY(-1px);
+    }
+
+    .footer {
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .footer a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      color: var(--accent);
     }
   </style>
 </head>
 <body>
-  <h1>你好，这是我的 GitHub 主页 👋</h1>
-  <p>后面我会慢慢在这里写点东西。</p>
+  <div class="shell">
+    <div class="card">
+      <!-- 顶部导航 -->
+      <header class="nav">
+        <div class="brand">
+          <!-- 头像字母：改成你名字首字母 -->
+          <div class="avatar">J</div>
+          <div>
+            <div class="brand-text-main">
+              {{ site.title | default: "JQ’s Space" }}
+              <span class="brand-dot"></span>
+            </div>
+            <div class="brand-sub">
+              {{ site.description | default: "记录一点代码 · 一些想法 · 偶尔折腾" }}
+            </div>
+          </div>
+        </div>
+        <nav class="nav-links">
+          <a href="#projects">项目</a>
+          <a href="#blog">文章</a>
+          <a href="#about" class="nav-primary">关于我</a>
+        </nav>
+      </header>
+
+      <main class="main">
+        <!-- 左侧：简介 + 项目 + 博客 -->
+        <section>
+          <h1 class="hero-title">
+            你好，我是 <span class="highlight">JQ</span>，
+            欢迎来到我的 GitHub 主页 👋
+          </h1>
+          <p class="hero-sub">
+            这里会放一些我折腾的项目、学习记录以及零碎想法。
+            如果你对 Flutter / 后端 / 自动化感兴趣，欢迎一起交流。
+          </p>
+
+          <div class="hero-tags">
+            <div class="chip">
+              <span class="chip-dot"></span>
+              <span>开源爱好者</span>
+            </div>
+            <div class="chip">
+              <span class="chip-dot"></span>
+              <span>Code · Note · Life</span>
+            </div>
+            <div class="chip">
+              <span class="chip-dot"></span>
+              <span>欢迎 Star ⭐</span>
+            </div>
+          </div>
+
+          <!-- 项目区块 -->
+          <section id="projects" class="section">
+            <div class="section-header">
+              <div class="section-title">Projects</div>
+              <div class="section-meta">最近在折腾什么 · 可自定义</div>
+            </div>
+            <ul class="project-list">
+              <li class="project-item">
+                <div class="project-main">
+                  <div class="project-name">
+                    <a href="https://github.com/{{ site.github_username | default: 'jq666-site' }}/jq666-site" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">
+                      个人主页 / GitHub Pages
+                    </a>
+                  </div>
+                  <div class="project-desc">
+                    本站源码，使用 GitHub Pages + Jekyll 构建，可作为静态站点 / 博客起点。
+                  </div>
+                </div>
+                <span class="project-tag">Jekyll · Pages</span>
+              </li>
+              <!--
+              下面可以继续加自己的项目：
+              <li class="project-item">
+                <div class="project-main">
+                  <div class="project-name">项目名字</div>
+                  <div class="project-desc">一句话描述项目用途 / 技术栈。</div>
+                </div>
+                <span class="project-tag">标签</span>
+              </li>
+              -->
+            </ul>
+          </section>
+
+          <!-- 博客区块：引用 site.posts（Jekyll 支持） -->
+          <section id="blog" class="section">
+            <div class="section-header">
+              <div class="section-title">Blog</div>
+              <div class="section-meta">
+                最近文章
+                {% if site.posts and site.posts != empty %}
+                  · 共 {{ site.posts | size }} 篇
+                {% endif %}
+              </div>
+            </div>
+
+            <ul class="blog-list">
+              {% if site.posts and site.posts != empty %}
+                {% for post in site.posts limit: 3 %}
+                  <li class="blog-item">
+                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    <div class="blog-meta">
+                      {{ post.date | date: "%Y-%m-%d" }}
+                      {% if post.tags and post.tags != empty %}
+                        · {{ post.tags | join: " · " }}
+                      {% endif %}
+                    </div>
+                  </li>
+                {% endfor %}
+              {% else %}
+                <li class="blog-item">
+                  <span>暂无文章，稍后会在这里更新笔记和碎碎念。</span>
+                </li>
+              {% endif %}
+            </ul>
+          </section>
+        </section>
+
+        <!-- 右侧：侧栏卡片 -->
+        <aside class="side-card" id="about">
+          <div class="badge">
+            <span class="badge-pulse"></span>
+            <span>现在 · 正在建设中</span>
+          </div>
+          <div class="side-title">关于我</div>
+          <p class="side-sub">
+            这里可以写一句简单的自我介绍，例如：
+            「某某城市的开发者，喜欢折腾 Flutter、后端、自动化脚本，也会偶尔写点生活记录。」
+          </p>
+
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">Links</div>
+              <div class="section-meta">常用链接 / 联系方式</div>
+            </div>
+            <div class="social-links">
+              <!-- 改成你自己的链接 -->
+              <a href="https://github.com/{{ site.github_username | default: 'jq666-site' }}" target="_blank" rel="noopener">GitHub</a>
+              <!-- 例如：个人博客 / 掘金 / B站 / Twitter 等 -->
+              <!-- <a href="https://your-blog.com" target="_blank" rel="noopener">Blog</a> -->
+              <!-- <a href="mailto:you@example.com">Email</a> -->
+            </div>
+          </div>
+
+          <footer class="footer">
+            <span>
+              © {{ "now" | date: "%Y" }}
+              {{ site.title | default: "JQ’s Space" }}
+            </span>
+            <span>
+              Powered by
+              <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>
+              ·
+              <a href="https://jekyllrb.com/" target="_blank" rel="noopener">Jekyll</a>
+            </span>
+          </footer>
+        </aside>
+      </main>
+    </div>
+  </div>
 </body>
 </html>

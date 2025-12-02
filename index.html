@@ -26,13 +26,15 @@ title: "Home"
     }
 
     /* 浅色主题覆盖 */
-    :root[data-theme="light"] {
+    body.light-theme {
       --bg: #f3f4f6;
-      --bg-card: rgba(255, 255, 255, 0.92);
+      --bg-card: #ffffff;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.18);
       --text: #111827;
       --muted: #6b7280;
-      --border: rgba(156, 163, 175, 0.6);
-      --shadow-soft: 0 18px 32px rgba(15, 23, 42, 0.18);
+      --border: rgba(156, 163, 175, 0.55);
+      --shadow-soft: 0 18px 35px rgba(15, 23, 42, 0.12);
     }
 
     * {
@@ -54,7 +56,7 @@ title: "Home"
       align-items: center;
       justify-content: center;
       padding: 32px 16px;
-      transition: background var(--transition), color var(--transition);
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     .shell {
@@ -70,10 +72,10 @@ title: "Home"
       overflow: hidden;
     }
 
-    :root[data-theme="light"] .shell {
+    body.light-theme .shell {
       background:
         linear-gradient(135deg, rgba(209, 213, 219, 0.6), transparent),
-        radial-gradient(circle at top, rgba(243, 244, 246, 0.98), #e5e7eb);
+        radial-gradient(circle at top, #ffffff, #e5e7eb);
     }
 
     .shell::before {
@@ -95,12 +97,11 @@ title: "Home"
       position: relative;
       overflow: hidden;
       border: 1px solid rgba(148, 163, 184, 0.3);
-      transition: background var(--transition), border-color var(--transition);
     }
 
-    :root[data-theme="light"] .card {
-      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.98), rgba(249, 250, 251, 1));
-      border-color: rgba(209, 213, 219, 0.9);
+    body.light-theme .card {
+      background: #ffffff;
+      border-color: rgba(209, 213, 219, 0.8);
     }
 
     /* 顶部导航 */
@@ -165,45 +166,45 @@ title: "Home"
       justify-content: flex-end;
     }
 
-    .nav-links a,
-    .nav-links button {
-      color: var(--muted);
-      text-decoration: none;
-      padding: 6px 10px;
+    .nav-link-btn {
       border-radius: 999px;
       border: 1px solid transparent;
-      transition: var(--transition);
+      padding: 6px 12px;
       background: transparent;
+      color: var(--muted);
       cursor: pointer;
       font-size: 13px;
-      line-height: 1;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
+      text-decoration: none;
+      transition: var(--transition);
     }
 
-    .nav-links a:hover,
-    .nav-links button:hover {
+    .nav-link-btn span.icon {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .nav-link-btn:hover {
       color: var(--text);
-      border-color: rgba(148, 163, 184, 0.6);
+      border-color: rgba(148, 163, 184, 0.7);
       background: radial-gradient(circle at top, rgba(15, 23, 42, .9), rgba(15, 23, 42, 1));
     }
 
-    :root[data-theme="light"] .nav-links a:hover,
-    :root[data-theme="light"] .nav-links button:hover {
-      background: rgba(243, 244, 246, 0.96);
+    body.light-theme .nav-link-btn:hover {
+      background: rgba(243, 244, 246, 0.9);
     }
 
-    .nav-primary-btn {
+    .nav-link-primary {
       color: var(--text);
-      border-color: rgba(56, 189, 248, 0.65);
-      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, .18), rgba(15, 23, 42, 0.96));
-      box-shadow: 0 0 14px rgba(56, 189, 248, 0.35);
+      border-color: rgba(56, 189, 248, 0.8);
+      background: radial-gradient(circle at 0 0, var(--accent-soft), rgba(15, 23, 42, 0.96));
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.35);
     }
 
-    :root[data-theme="light"] .nav-primary-btn {
-      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, .22), #0f172a);
-      color: #e5f3ff;
+    body.light-theme .nav-link-primary {
+      background: linear-gradient(135deg, rgba(191, 219, 254, 0.9), rgba(129, 140, 248, 0.18));
     }
 
     /* 主区域布局 */
@@ -272,9 +273,9 @@ title: "Home"
       color: var(--muted);
     }
 
-    :root[data-theme="light"] .chip {
-      background: rgba(249, 250, 251, 0.96);
-      border-color: rgba(209, 213, 219, 0.9);
+    body.light-theme .chip {
+      background: rgba(249, 250, 251, 0.9);
+      color: #4b5563;
     }
 
     .chip-dot {
@@ -291,11 +292,10 @@ title: "Home"
       border-radius: var(--radius-xl);
       background: radial-gradient(circle at top left, rgba(15, 23, 42, .9), rgba(15, 23, 42, 1));
       border: 1px solid var(--border);
-      transition: background var(--transition), border-color var(--transition);
     }
 
-    :root[data-theme="light"] .section {
-      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.98), rgba(249, 250, 251, 1));
+    body.light-theme .section {
+      background: #f9fafb;
       border-color: rgba(209, 213, 219, 0.9);
     }
 
@@ -312,6 +312,10 @@ title: "Home"
       letter-spacing: 0.04em;
       text-transform: uppercase;
       color: #9ca3ff;
+    }
+
+    body.light-theme .section-title {
+      color: #4f46e5;
     }
 
     .section-meta {
@@ -359,7 +363,7 @@ title: "Home"
       white-space: nowrap;
     }
 
-    :root[data-theme="light"] .project-tag {
+    body.light-theme .project-tag {
       background: rgba(219, 234, 254, 0.9);
       color: #1d4ed8;
     }
@@ -397,7 +401,11 @@ title: "Home"
       padding: 14px 14px 12px;
       position: relative;
       overflow: hidden;
-      transition: background var(--transition), border-color var(--transition);
+    }
+
+    body.light-theme .side-card {
+      background: #f9fafb;
+      border-color: rgba(209, 213, 219, 0.9);
     }
 
     .side-card::before {
@@ -412,14 +420,6 @@ title: "Home"
       z-index: -1;
     }
 
-    :root[data-theme="light"] .side-card {
-      background:
-        radial-gradient(circle at 20% 10%, rgba(191, 219, 254, .45), transparent 55%),
-        radial-gradient(circle at 80% 90%, rgba(233, 213, 255, .6), transparent 55%),
-        #f9fafb;
-      border-color: rgba(209, 213, 219, 0.95);
-    }
-
     .badge {
       display: inline-flex;
       align-items: center;
@@ -429,13 +429,13 @@ title: "Home"
       border: 1px solid rgba(56, 189, 248, 0.6);
       background: rgba(15, 23, 42, 0.9);
       font-size: 11px;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
       color: #bfdbfe;
     }
 
-    :root[data-theme="light"] .badge {
-      background: rgba(15, 23, 42, 0.95);
-      color: #e0f2fe;
+    body.light-theme .badge {
+      background: rgba(219, 234, 254, 0.95);
+      color: #1d4ed8;
     }
 
     .badge-pulse {
@@ -489,15 +489,19 @@ title: "Home"
       transition: var(--transition);
     }
 
-    :root[data-theme="light"] .social-links a {
-      background: rgba(249, 250, 251, 0.98);
-      border-color: rgba(209, 213, 219, 0.95);
+    body.light-theme .social-links a {
+      background: #ffffff;
+      border-color: rgba(209, 213, 219, 0.9);
     }
 
     .social-links a:hover {
       border-color: rgba(56, 189, 248, 0.7);
       color: #e0f2fe;
       transform: translateY(-1px);
+    }
+
+    body.light-theme .social-links a:hover {
+      color: #1d4ed8;
     }
 
     .footer {
@@ -508,6 +512,7 @@ title: "Home"
       align-items: center;
       gap: 12px;
       margin-top: 10px;
+      flex-wrap: wrap;
     }
 
     .footer a {
@@ -519,193 +524,196 @@ title: "Home"
       color: var(--accent);
     }
 
-    /* API 状态 */
-
-    .api-status-text {
-      font-size: 11px;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-
-    .api-status-ok {
-      color: #4ade80;
-    }
-
-    .api-status-error {
-      color: #fb7185;
-    }
-
-    /* 弹窗 */
+    /* 弹窗：发文档 */
 
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.75);
-      display: flex;
-      justify-content: center;
+      background: rgba(15, 23, 42, 0.65);
+      display: none;
       align-items: center;
-      z-index: 40;
-      padding: 16px;
+      justify-content: center;
+      z-index: 50;
     }
 
-    :root[data-theme="light"] .modal-backdrop {
-      background: rgba(15, 23, 42, 0.45);
+    .modal-backdrop.show {
+      display: flex;
     }
 
-    .modal-card {
+    .modal {
       width: 100%;
-      max-width: 520px;
+      max-width: 480px;
       border-radius: 20px;
       background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 1));
-      border: 1px solid rgba(148, 163, 184, 0.65);
-      box-shadow: var(--shadow-soft);
-      padding: 18px 18px 14px;
-      position: relative;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 18px 18px 16px;
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.85);
     }
 
-    :root[data-theme="light"] .modal-card {
-      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.98), #f3f4f6);
-      border-color: rgba(209, 213, 219, 0.95);
+    body.light-theme .modal {
+      background: #ffffff;
+      border-color: rgba(209, 213, 219, 0.9);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.3);
     }
 
     .modal-header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      margin-bottom: 10px;
+      align-items: center;
+      margin-bottom: 12px;
     }
 
     .modal-title {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 600;
     }
 
-    .modal-sub {
-      font-size: 11px;
-      color: var(--muted);
-      margin-bottom: 10px;
-    }
-
     .modal-close {
-      width: 24px;
-      height: 24px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
+      border: none;
       background: transparent;
       color: var(--muted);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 18px;
+      padding: 4px;
+      border-radius: 999px;
       line-height: 1;
       transition: var(--transition);
     }
 
     .modal-close:hover {
-      border-color: rgba(248, 113, 113, 0.85);
-      color: #fecaca;
-      transform: translateY(-1px);
+      color: var(--text);
+      background: rgba(148, 163, 184, 0.18);
     }
 
-    .docs-form {
-      margin-top: 4px;
-      padding-top: 8px;
+    .modal-body {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
+      font-size: 13px;
     }
 
-    .docs-form-row {
+    .form-group {
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
 
-    .docs-label {
+    .form-label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+      padding: 7px 9px;
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      transition: var(--transition);
+      resize: vertical;
+      min-height: 32px;
+    }
+
+    body.light-theme .form-input,
+    body.light-theme .form-textarea {
+      background: #f9fafb;
+      border-color: rgba(209, 213, 219, 0.9);
+      color: #111827;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: rgba(56, 189, 248, 0.85);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+    }
+
+    .form-textarea {
+      min-height: 120px;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .btn-ghost {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: transparent;
+      color: var(--muted);
+      padding: 6px 13px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-ghost:hover {
+      color: var(--text);
+      background: rgba(148, 163, 184, 0.1);
+    }
+
+    .btn-primary {
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.9);
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.95), #4f46e5);
+      color: #0f172a;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.45);
+    }
+
+    .modal-tip {
       font-size: 11px;
       color: var(--muted);
     }
 
-    .docs-input,
-    .docs-textarea {
-      width: 100%;
-      padding: 6px 8px;
-      border-radius: 10px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.95);
+    .toast {
+      position: fixed;
+      z-index: 60;
+      right: 16px;
+      bottom: 16px;
+      background: rgba(15, 23, 42, 0.96);
       color: var(--text);
-      font-size: 12px;
-      outline: none;
-      resize: vertical;
-      min-height: 32px;
-      transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
-    }
-
-    :root[data-theme="light"] .docs-input,
-    :root[data-theme="light"] .docs-textarea {
-      background: rgba(249, 250, 251, 0.98);
-      border-color: rgba(209, 213, 219, 0.9);
-    }
-
-    .docs-textarea {
-      min-height: 80px;
-    }
-
-    .docs-input:focus,
-    .docs-textarea:focus {
-      border-color: rgba(56, 189, 248, 0.8);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5);
-      background: rgba(15, 23, 42, 0.98);
-    }
-
-    :root[data-theme="light"] .docs-input:focus,
-    :root[data-theme="light"] .docs-textarea:focus {
-      background: #ffffff;
-    }
-
-    .docs-submit {
-      align-self: flex-start;
-      padding: 6px 14px;
       border-radius: 999px;
-      border: 1px solid rgba(56, 189, 248, 0.9);
-      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, .2), rgba(15, 23, 42, .98));
-      color: #e0f2fe;
+      padding: 8px 14px;
       font-size: 12px;
-      cursor: pointer;
-      transition: var(--transition);
-      margin-top: 2px;
-    }
-
-    :root[data-theme="light"] .docs-submit {
-      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, .25), #0f172a);
-      color: #e5f3ff;
-    }
-
-    .docs-submit:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 0 18px rgba(56, 189, 248, 0.3);
-    }
-
-    .docs-form-msg {
-      font-size: 11px;
-      min-height: 14px;
-    }
-
-    .docs-form-msg-ok {
-      color: #4ade80;
-    }
-
-    .docs-form-msg-error {
-      color: #fb7185;
-    }
-
-    .hidden {
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.8);
       display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    body.light-theme .toast {
+      background: #ffffff;
+      color: #111827;
+      border-color: rgba(209, 213, 219, 0.9);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.24);
+    }
+
+    .toast.show {
+      display: inline-flex;
+    }
+
+    .toast-icon {
+      font-size: 14px;
     }
   </style>
 </head>
-<body id="top">
+<body>
   <div class="shell">
     <div class="card">
       <!-- 顶部导航 -->
@@ -724,21 +732,34 @@ title: "Home"
           </div>
         </div>
         <nav class="nav-links">
-          <a href="#top">首页</a>
-          <a href="https://github.com/{{ site.github_username | default: 'jq666-site' }}" target="_blank" rel="noopener">
-            GitHub 主页
+          <!-- 首页 -->
+          <a class="nav-link-btn nav-link-primary" href="{{ '/' | relative_url }}">
+            <span class="icon">🏠</span>
+            <span>首页</span>
           </a>
-          <button type="button" id="theme-toggle">
-            主题切换
+
+          <!-- GitHub 主页 -->
+          <a class="nav-link-btn" href="https://github.com/{{ site.github_username | default: 'jq666-site' }}" target="_blank" rel="noopener">
+            <span class="icon">🐙</span>
+            <span>GitHub 主页</span>
+          </a>
+
+          <!-- 主题切换 -->
+          <button type="button" class="nav-link-btn" id="btn-theme-toggle">
+            <span class="icon">🌓</span>
+            <span id="theme-toggle-text">主题：深色</span>
           </button>
-          <button type="button" id="nav-write-doc" class="nav-primary-btn">
-            发文档
+
+          <!-- 发文档 -->
+          <button type="button" class="nav-link-btn" id="btn-open-modal">
+            <span class="icon">✍️</span>
+            <span>发文档</span>
           </button>
         </nav>
       </header>
 
       <main class="main">
-        <!-- 左侧：简介 + Tech Docs + Projects + Blog -->
+        <!-- 左侧：简介 + 项目 + 文档列表 -->
         <section>
           <h1 class="hero-title">
             你好，我是 <span class="highlight">JQ</span>，
@@ -764,22 +785,6 @@ title: "Home"
             </div>
           </div>
 
-          <!-- 技术文档区块：从 /api/docs 加载 -->
-          <section id="docs" class="section">
-            <div class="section-header">
-              <div class="section-title">Tech Docs</div>
-              <div class="section-meta" id="docs-section-meta">
-                云端技术文档 · 来自 Cloudflare KV
-              </div>
-            </div>
-
-            <ul class="blog-list" id="docs-list">
-              <li class="blog-item">
-                <span>正在准备加载技术文档…</span>
-              </li>
-            </ul>
-          </section>
-
           <!-- 项目区块 -->
           <section id="projects" class="section">
             <div class="section-header">
@@ -803,36 +808,19 @@ title: "Home"
             </ul>
           </section>
 
-          <!-- 博客区块：引用 site.posts（Jekyll 支持） -->
+          <!-- 文档区块：使用 Cloudflare Worker 的 /api/docs -->
           <section id="blog" class="section">
             <div class="section-header">
-              <div class="section-title">Blog</div>
-              <div class="section-meta">
-                最近文章
-                {% if site.posts and site.posts != empty %}
-                  · 共 {{ site.posts | size }} 篇
-                {% endif %}
+              <div class="section-title">Docs</div>
+              <div class="section-meta" id="docs-meta">
+                从 Cloudflare Worker 拉取技术文档
               </div>
             </div>
 
-            <ul class="blog-list">
-              {% if site.posts and site.posts != empty %}
-                {% for post in site.posts limit: 3 %}
-                  <li class="blog-item">
-                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                    <div class="blog-meta">
-                      {{ post.date | date: "%Y-%m-%d" }}
-                      {% if post.tags and post.tags != empty %}
-                        · {{ post.tags | join: " · " }}
-                      {% endif %}
-                    </div>
-                  </li>
-                {% endfor %}
-              {% else %}
-                <li class="blog-item">
-                  <span>暂无文章，稍后会在这里更新笔记和碎碎念。</span>
-                </li>
-              {% endif %}
+            <ul class="blog-list" id="docs-list">
+              <li class="blog-item">
+                <span>正在加载文档列表…</span>
+              </li>
             </ul>
           </section>
         </section>
@@ -843,10 +831,6 @@ title: "Home"
             <span class="badge-pulse"></span>
             <span>现在 · 正在建设中</span>
           </div>
-          <div id="api-status" class="api-status-text">
-            API_BASE 未配置，目前只展示静态页面。
-          </div>
-
           <div class="side-title">关于我</div>
           <p class="side-sub">
             这里可以写一句简单的自我介绍，例如：
@@ -859,8 +843,10 @@ title: "Home"
               <div class="section-meta">常用链接 / 联系方式</div>
             </div>
             <div class="social-links">
-              <!-- 改成你自己的链接 -->
               <a href="https://github.com/{{ site.github_username | default: 'jq666-site' }}" target="_blank" rel="noopener">GitHub</a>
+              <!-- 例如：个人博客 / 掘金 / B站 / Twitter 等 -->
+              <!-- <a href="https://your-blog.com" target="_blank" rel="noopener">Blog</a> -->
+              <!-- <a href="mailto:you@example.com">Email</a> -->
             </div>
           </div>
 
@@ -882,346 +868,302 @@ title: "Home"
   </div>
 
   <!-- 发文档弹窗 -->
-  <div id="doc-modal" class="modal-backdrop hidden">
-    <div class="modal-card">
+  <div class="modal-backdrop" id="post-modal">
+    <div class="modal">
       <div class="modal-header">
-        <div class="modal-title">发一篇技术文档</div>
-        <button type="button" class="modal-close" id="doc-modal-close" aria-label="关闭">
-          ✕
-        </button>
+        <div class="modal-title">发文档</div>
+        <button type="button" class="modal-close" id="btn-modal-close">✕</button>
       </div>
-      <div class="modal-sub">
-        内容会通过 <code>/api/docs</code> 保存到 Cloudflare KV。提交前需要输入固定验证码（在后端新接口配置）。
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="doc-title-input">标题</label>
+          <input id="doc-title-input" class="form-input" placeholder="例如：使用 Cloudflare Workers + KV 做轻量后端">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="doc-tags-input">标签（可选，逗号分隔）</label>
+          <input id="doc-tags-input" class="form-input" placeholder="例如：cloudflare, worker, kv">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="doc-content-input">内容</label>
+          <textarea id="doc-content-input" class="form-textarea" placeholder="这里写技术记录、方案说明或备忘..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="doc-code-input">验证码</label>
+          <input id="doc-code-input" class="form-input" placeholder="请输入固定验证码">
+          <div class="modal-tip">
+            验证码由后端接口校验，这里只是收集输入并随请求提交。
+          </div>
+        </div>
       </div>
-      <form class="docs-form" id="doc-modal-form">
-        <div class="docs-form-row">
-          <label class="docs-label" for="doc-modal-title">标题</label>
-          <input id="doc-modal-title" class="docs-input" type="text" placeholder="例如：Cloudflare Workers + KV 轻量后端实践" />
-        </div>
-        <div class="docs-form-row">
-          <label class="docs-label" for="doc-modal-content">内容</label>
-          <textarea id="doc-modal-content" class="docs-textarea" placeholder="写一点技术笔记，最终会保存到 KV。"></textarea>
-        </div>
-        <div class="docs-form-row">
-          <label class="docs-label" for="doc-modal-tags">标签（可选，英文逗号分隔）</label>
-          <input id="doc-modal-tags" class="docs-input" type="text" placeholder="例如：cloudflare, worker, kv" />
-        </div>
-        <div class="docs-form-row">
-          <label class="docs-label" for="doc-modal-code">验证码</label>
-          <input id="doc-modal-code" class="docs-input" type="password" placeholder="请输入后台约定的验证码" />
-        </div>
-        <button type="submit" class="docs-submit">提交文档</button>
-        <div class="docs-form-msg" id="doc-modal-msg"></div>
-      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn-ghost" id="btn-modal-cancel">取消</button>
+        <button type="button" class="btn-primary" id="btn-modal-submit">提交</button>
+      </div>
     </div>
   </div>
 
+  <!-- 简单 Toast -->
+  <div class="toast" id="toast">
+    <span class="toast-icon" id="toast-icon">✅</span>
+    <span id="toast-text">操作成功</span>
+  </div>
+
   <script>
-    // ===== 配置：Cloudflare Worker 基础地址 =====
-    // 改成你的 Worker 地址（不要带最后的 /）
-    // 例如： const API_BASE = "";
-    const API_BASE = "https://lingering-resonance-6555.aa1348769445.workers.dev";
+    // ====== 你在其他脚本里自定义这个变量也可以 ======
+    // 比如在另一个 <script> 里写：
+    //   window.DOCS_API_BASE = "https://你的-worker.workers.dev";
+    // 不赋值的话默认走相对路径 ""（即同域 /api/...）
+    window.DOCS_API_BASE = window.DOCS_API_BASE || "https://lingering-resonance-6555.aa1348769445.workers.dev";
 
-    function getApiUrl(path) {
-      if (!API_BASE) return null;
-      return API_BASE.replace(/\/+$/, "") + path;
+    const API_BASE = window.DOCS_API_BASE || "";
+    const API_TEST = API_BASE + "/api/test";
+    const API_DOCS = API_BASE + "/api/docs";
+
+    // ====== 小工具函数 ======
+
+    function escapeHtml(str) {
+      return (str || "").replace(/[&<>"']/g, function (c) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;"
+        }[c] || c;
+      });
     }
 
-    // ===== 主题切换 =====
-    const THEME_STORAGE_KEY = "site-theme";
+    function showToast(message, ok = true) {
+      const toast = document.getElementById("toast");
+      const text = document.getElementById("toast-text");
+      const icon = document.getElementById("toast-icon");
+      if (!toast || !text || !icon) return;
 
-    function applyTheme(theme) {
-      const root = document.documentElement;
-      const validTheme = theme === "light" ? "light" : "dark";
-      root.setAttribute("data-theme", validTheme);
-
-      const btn = document.getElementById("theme-toggle");
-      if (btn) {
-        btn.textContent = validTheme === "dark" ? "主题切换 · 暗" : "主题切换 · 亮";
-      }
-
-      try {
-        localStorage.setItem(THEME_STORAGE_KEY, validTheme);
-      } catch (_) {}
+      text.textContent = message;
+      icon.textContent = ok ? "✅" : "⚠️";
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2200);
     }
 
-    function initTheme() {
-      let saved = "dark";
-      try {
-        const stored = localStorage.getItem(THEME_STORAGE_KEY);
-        if (stored === "light" || stored === "dark") {
-          saved = stored;
-        } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
-          saved = "light";
-        }
-      } catch (_) {}
-      applyTheme(saved);
+    // ====== 主题切换 ======
 
-      const btn = document.getElementById("theme-toggle");
-      if (btn) {
-        btn.addEventListener("click", () => {
-          const current = document.documentElement.getAttribute("data-theme") || "dark";
-          applyTheme(current === "dark" ? "light" : "dark");
-        });
+    function applyThemeFromStorage() {
+      const saved = localStorage.getItem("jq_theme") || "dark";
+      const body = document.body;
+      const label = document.getElementById("theme-toggle-text");
+      if (saved === "light") {
+        body.classList.add("light-theme");
+        label && (label.textContent = "主题：浅色");
+      } else {
+        body.classList.remove("light-theme");
+        label && (label.textContent = "主题：深色");
       }
     }
 
-    // ===== API 状态 & 文档列表 =====
-
-    async function initApiStatus() {
-      const statusEl = document.getElementById("api-status");
-      if (!statusEl) return;
-
-      if (!API_BASE) {
-        statusEl.textContent = "API_BASE 未配置，目前只展示静态页面。";
-        statusEl.classList.remove("api-status-ok", "api-status-error");
-        return;
-      }
-
-      try {
-        const url = getApiUrl("/api/test");
-        const res = await fetch(url);
-        const data = await res.json();
-        if (data && data.ok) {
-          statusEl.textContent = "已连接 Cloudflare Worker · " + (data.time || "");
-          statusEl.classList.add("api-status-ok");
-          statusEl.classList.remove("api-status-error");
+    function setupThemeToggle() {
+      const btn = document.getElementById("btn-theme-toggle");
+      if (!btn) return;
+      btn.addEventListener("click", () => {
+        const body = document.body;
+        const label = document.getElementById("theme-toggle-text");
+        const nowLight = !body.classList.contains("light-theme");
+        if (nowLight) {
+          body.classList.add("light-theme");
+          localStorage.setItem("jq_theme", "light");
+          label && (label.textContent = "主题：浅色");
         } else {
-          throw new Error("响应异常");
+          body.classList.remove("light-theme");
+          localStorage.setItem("jq_theme", "dark");
+          label && (label.textContent = "主题：深色");
         }
-      } catch (err) {
-        statusEl.textContent = "无法连接云端服务，请检查 API_BASE 或 Worker 配置。";
-        statusEl.classList.add("api-status-error");
-        statusEl.classList.remove("api-status-ok");
-      }
+      });
     }
 
-    function initDocsSection() {
-      const listEl = document.getElementById("docs-list");
-      const metaEl = document.getElementById("docs-section-meta");
-
-      if (!listEl) return;
-
-      if (!API_BASE) {
-        if (metaEl) {
-          metaEl.textContent = "云端技术文档 · API_BASE 未配置，仅展示静态说明";
-        }
-        listEl.innerHTML = '<li class="blog-item"><span>未配置 API_BASE，暂不从云端加载技术文档。</span></li>';
-        return;
-      }
-
-      if (metaEl) {
-        metaEl.textContent = "云端技术文档 · 来自 /api/docs";
-      }
-
-      loadDocs();
-    }
+    // ====== 文档列表：GET /api/docs ======
 
     async function loadDocs() {
       const listEl = document.getElementById("docs-list");
+      const metaEl = document.getElementById("docs-meta");
       if (!listEl) return;
 
-      listEl.innerHTML = '<li class="blog-item"><span>正在从 /api/docs 加载技术文档…</span></li>';
+      listEl.innerHTML = '<li class="blog-item"><span>正在加载文档列表…</span></li>';
 
       try {
-        const url = getApiUrl("/api/docs?limit=20");
-        const res = await fetch(url);
-        const data = await res.json();
-
-        if (!data || !data.ok) {
-          throw new Error(data && data.error ? data.error : "未知错误");
+        // 顺带探测一下 /api/test 是否可用
+        try {
+          const testRes = await fetch(API_TEST, { method: "GET" });
+          if (testRes.ok) {
+            const t = await testRes.json().catch(() => null);
+            if (t && t.ok && metaEl) {
+              metaEl.textContent = "API 正常 · 最近更新时间 " + (t.time || "");
+            }
+          }
+        } catch (e) {
+          // 忽略测试接口错误，不影响后面列表
         }
 
-        const items = Array.isArray(data.items) ? data.items : [];
+        const res = await fetch(API_DOCS + "?limit=20");
+        const data = await res.json();
 
-        if (!items.length) {
-          listEl.innerHTML = '<li class="blog-item"><span>暂时还没有技术文档，可以通过右上角「发文档」来创建。</span></li>';
+        if (!data.ok) {
+          listEl.innerHTML =
+            '<li class="blog-item"><span>加载失败：' +
+            escapeHtml(data.error || "未知错误") +
+            "</span></li>";
           return;
         }
 
-        listEl.innerHTML = "";
-        items.forEach((item) => {
-          const li = document.createElement("li");
-          li.className = "blog-item";
+        const items = data.items || [];
+        if (!items.length) {
+          listEl.innerHTML =
+            '<li class="blog-item"><span>暂无文档，点击上方「发文档」可以试一试～</span></li>';
+          return;
+        }
 
-          const title = document.createElement("div");
-          const titleText = document.createElement("span");
-          titleText.textContent = item.title || "(未命名文档)";
-          title.appendChild(titleText);
+        listEl.innerHTML = items
+          .map((doc) => {
+            const created = doc.createdAt
+              ? new Date(doc.createdAt).toISOString().slice(0, 10)
+              : "";
+            const tags =
+              doc.tags && doc.tags.length
+                ? " · " +
+                  doc.tags
+                    .map((t) => escapeHtml(t))
+                    .join(" · ")
+                : "";
 
-          const meta = document.createElement("div");
-          meta.className = "blog-meta";
-          const created = item.createdAt
-            ? new Date(item.createdAt).toISOString().slice(0, 10)
-            : "";
-          const tags = Array.isArray(item.tags) ? item.tags.filter(Boolean) : [];
+            return `
+              <li class="blog-item">
+                <a href="detail.html?id=${encodeURIComponent(doc.id)}">
+                  ${escapeHtml(doc.title || "(未命名)")}
+                </a>
+                <div class="blog-meta">
+                  ${created}${tags}
+                </div>
+              </li>
+            `;
+          })
+          .join("");
+      } catch (e) {
+        console.error(e);
+        listEl.innerHTML =
+          '<li class="blog-item"><span>请求异常，请稍后再试。</span></li>';
+      }
+    }
 
-          meta.textContent = created ? created : "";
-          if (tags.length) {
-            meta.textContent += (meta.textContent ? " · " : "") + tags.join(" · ");
+    // ====== 发文档弹窗逻辑：POST /api/docs ======
+
+    function openModal() {
+      const modal = document.getElementById("post-modal");
+      if (!modal) return;
+      modal.classList.add("show");
+    }
+
+    function closeModal() {
+      const modal = document.getElementById("post-modal");
+      if (!modal) return;
+      modal.classList.remove("show");
+    }
+
+    function setupModal() {
+      const btnOpen = document.getElementById("btn-open-modal");
+      const btnClose = document.getElementById("btn-modal-close");
+      const btnCancel = document.getElementById("btn-modal-cancel");
+      const btnSubmit = document.getElementById("btn-modal-submit");
+      const backdrop = document.getElementById("post-modal");
+
+      btnOpen && btnOpen.addEventListener("click", () => {
+        openModal();
+      });
+
+      btnClose && btnClose.addEventListener("click", closeModal);
+      btnCancel && btnCancel.addEventListener("click", closeModal);
+
+      // 点击背板关闭
+      backdrop &&
+        backdrop.addEventListener("click", (e) => {
+          if (e.target === backdrop) {
+            closeModal();
+          }
+        });
+
+      if (btnSubmit) {
+        btnSubmit.addEventListener("click", async () => {
+          const titleEl = document.getElementById("doc-title-input");
+          const tagsEl = document.getElementById("doc-tags-input");
+          const contentEl = document.getElementById("doc-content-input");
+          const codeEl = document.getElementById("doc-code-input");
+
+          const title = (titleEl && titleEl.value.trim()) || "";
+          const tagsStr = (tagsEl && tagsEl.value.trim()) || "";
+          const content = (contentEl && contentEl.value.trim()) || "";
+          const code = (codeEl && codeEl.value.trim()) || "";
+
+          if (!title || !content) {
+            showToast("标题和内容不能为空", false);
+            return;
+          }
+          if (!code) {
+            showToast("请输入验证码", false);
+            return;
           }
 
-          li.appendChild(title);
-          li.appendChild(meta);
-          listEl.appendChild(li);
+          const tags = tagsStr
+            ? tagsStr.split(",").map((t) => t.trim()).filter(Boolean)
+            : [];
+
+          btnSubmit.disabled = true;
+          btnSubmit.textContent = "提交中…";
+
+          try {
+            const res = await fetch(API_DOCS, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                title,
+                content,
+                tags,
+                code,
+              }),
+            });
+
+            const data = await res.json().catch(() => null);
+
+            if (!res.ok || !data || !data.ok) {
+              const msg = (data && data.error) || "提交失败";
+              showToast(msg, false);
+            } else {
+              showToast("文档已提交");
+              closeModal();
+              // 清空输入
+              titleEl && (titleEl.value = "");
+              tagsEl && (tagsEl.value = "");
+              contentEl && (contentEl.value = "");
+              codeEl && (codeEl.value = "");
+              // 重新加载列表
+              loadDocs();
+            }
+          } catch (e) {
+            console.error(e);
+            showToast("网络异常，稍后重试", false);
+          } finally {
+            btnSubmit.disabled = false;
+            btnSubmit.textContent = "提交";
+          }
         });
-      } catch (err) {
-        listEl.innerHTML =
-          '<li class="blog-item"><span>加载失败：' +
-          (err.message || "未知错误") +
-          "</span></li>";
-      }
-    }
-
-    // ===== 发文档弹窗 =====
-
-    function openDocModal() {
-      const modal = document.getElementById("doc-modal");
-      if (!modal) return;
-      modal.classList.remove("hidden");
-
-      // 小体验：弹出时把标题 focus
-      setTimeout(() => {
-        const titleEl = document.getElementById("doc-modal-title");
-        if (titleEl) {
-          titleEl.focus();
-        }
-      }, 10);
-    }
-
-    function closeDocModal() {
-      const modal = document.getElementById("doc-modal");
-      if (!modal) return;
-      modal.classList.add("hidden");
-    }
-
-    async function onDocModalSubmit(event) {
-      event.preventDefault();
-      const titleEl = document.getElementById("doc-modal-title");
-      const contentEl = document.getElementById("doc-modal-content");
-      const tagsEl = document.getElementById("doc-modal-tags");
-      const codeEl = document.getElementById("doc-modal-code");
-      const msgEl = document.getElementById("doc-modal-msg");
-
-      if (!API_BASE) {
-        if (msgEl) {
-          msgEl.textContent = "未配置 API_BASE，无法提交到云端。";
-          msgEl.className = "docs-form-msg docs-form-msg-error";
-        }
-        return;
-      }
-
-      const title = (titleEl.value || "").trim();
-      const content = (contentEl.value || "").trim();
-      const rawTags = (tagsEl.value || "").trim();
-      const code = (codeEl.value || "").trim();
-
-      if (!title || !content) {
-        if (msgEl) {
-          msgEl.textContent = "标题和内容不能为空。";
-          msgEl.className = "docs-form-msg docs-form-msg-error";
-        }
-        return;
-      }
-
-      if (!code) {
-        if (msgEl) {
-          msgEl.textContent = "请填写验证码。";
-          msgEl.className = "docs-form-msg docs-form-msg-error";
-        }
-        return;
-      }
-
-      const tags = rawTags
-        ? rawTags.split(",").map((t) => t.trim()).filter(Boolean)
-        : [];
-
-      if (msgEl) {
-        msgEl.textContent = "正在提交到 /api/docs…";
-        msgEl.className = "docs-form-msg";
-      }
-
-      try {
-        const url = getApiUrl("/api/docs");
-        const res = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            title,
-            content,
-            tags,
-            code, // 验证码字段，后端自己校验
-          }),
-        });
-
-        const data = await res.json();
-
-        if (!data || !data.ok) {
-          throw new Error(data && data.error ? data.error : "提交失败");
-        }
-
-        if (msgEl) {
-          msgEl.textContent = "已保存到云端。";
-          msgEl.className = "docs-form-msg docs-form-msg-ok";
-        }
-
-        // 清空表单
-        titleEl.value = "";
-        contentEl.value = "";
-        tagsEl.value = "";
-        codeEl.value = "";
-
-        // 刷新列表
-        loadDocs();
-
-        // 过一会自动关闭
-        setTimeout(() => {
-          closeDocModal();
-          if (msgEl) msgEl.textContent = "";
-        }, 600);
-      } catch (err) {
-        if (msgEl) {
-          msgEl.textContent = "提交失败：" + (err.message || "未知错误");
-          msgEl.className = "docs-form-msg docs-form-msg-error";
-        }
       }
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      initTheme();
-      initApiStatus();
-      initDocsSection();
-
-      const writeBtn = document.getElementById("nav-write-doc");
-      if (writeBtn) {
-        writeBtn.addEventListener("click", openDocModal);
-      }
-
-      const closeBtn = document.getElementById("doc-modal-close");
-      const modal = document.getElementById("doc-modal");
-      if (closeBtn) closeBtn.addEventListener("click", closeDocModal);
-      if (modal) {
-        // 点击遮罩空白区域关闭
-        modal.addEventListener("click", (e) => {
-          if (e.target === modal) {
-            closeDocModal();
-          }
-        });
-      }
-
-      const form = document.getElementById("doc-modal-form");
-      if (form) {
-        form.addEventListener("submit", onDocModalSubmit);
-      }
-
-      // Esc 关闭
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          closeDocModal();
-        }
-      });
+      applyThemeFromStorage();
+      setupThemeToggle();
+      setupModal();
+      loadDocs();
     });
   </script>
 </body>

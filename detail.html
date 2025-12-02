@@ -1,6 +1,6 @@
 ---
 layout: null
-title: "文档详情"
+title: "Detail"
 ---
 
 <!doctype html>
@@ -8,8 +8,7 @@ title: "文档详情"
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>文档详情 - {{ site.title | default: "JQ’s Space" }}</title>
-  <meta name="description" content="技术文档详情页">
+  <title>文档详情 - {{ site.title | default: "My GitHub Site" }}</title>
 
   <style>
     :root {
@@ -25,12 +24,27 @@ title: "文档详情"
       --transition: 0.25s ease;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.light-theme {
+      --bg: #f3f4f6;
+      --bg-card: #ffffff;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.18);
+      --text: #111827;
+      --muted: #6b7280;
+      --border: rgba(156, 163, 175, 0.55);
+      --shadow-soft: 0 18px 35px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       min-height: 100vh;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
-      "PingFang SC", "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
+        "PingFang SC", "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
       background:
         radial-gradient(circle at top left, rgba(56, 189, 248, .18), transparent 55%),
         radial-gradient(circle at bottom right, rgba(129, 140, 248, .18), transparent 55%),
@@ -40,11 +54,12 @@ title: "文档详情"
       align-items: center;
       justify-content: center;
       padding: 32px 16px;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     .shell {
       width: 100%;
-      max-width: 980px;
+      max-width: 900px;
       border-radius: 24px;
       background:
         linear-gradient(135deg, rgba(148, 163, 184, 0.25), transparent),
@@ -55,25 +70,22 @@ title: "文档详情"
       overflow: hidden;
     }
 
-    .shell::before {
-      content: "";
-      position: absolute;
-      inset: -120px;
-      opacity: .18;
+    body.light-theme .shell {
       background:
-        radial-gradient(circle at 20% 0%, rgba(56, 189, 248, .4), transparent 55%),
-        radial-gradient(circle at 80% 100%, rgba(147, 51, 234, .42), transparent 55%);
-      filter: blur(38px);
-      z-index: -1;
+        linear-gradient(135deg, rgba(209, 213, 219, 0.6), transparent),
+        radial-gradient(circle at top, #ffffff, #e5e7eb);
     }
 
     .card {
       border-radius: 24px;
       background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
-      padding: 22px 22px 26px;
-      position: relative;
-      overflow: hidden;
+      padding: 20px 20px 22px;
       border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    body.light-theme .card {
+      background: #ffffff;
+      border-color: rgba(209, 213, 219, 0.8);
     }
 
     .nav {
@@ -81,285 +93,386 @@ title: "文档详情"
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
-    .brand {
+    .nav-left {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .avatar {
-      width: 34px;
-      height: 34px;
+    .back-btn {
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 10%, #e5e7eb, #64748b);
-      border: 2px solid rgba(148, 163, 184, 0.65);
-      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 16px;
-      color: #0f172a;
-    }
-
-    .brand-text-main {
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      display: flex;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: transparent;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 5px 10px;
+      cursor: pointer;
+      display: inline-flex;
       align-items: center;
       gap: 6px;
+      transition: var(--transition);
+      text-decoration: none;
     }
 
-    .brand-sub {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .brand-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #4ade80;
-      box-shadow: 0 0 0 5px rgba(74, 222, 128, 0.18);
-    }
-
-    .nav-actions {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .btn {
-      border-radius: 999px;
-      padding: 6px 14px;
-      font-size: 13px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.96);
+    .back-btn:hover {
       color: var(--text);
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    body.light-theme .back-btn:hover {
+      background: rgba(243, 244, 246, 0.9);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link-btn {
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      padding: 5px 11px;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       cursor: pointer;
+      text-decoration: none;
       transition: var(--transition);
     }
 
-    .btn:hover {
-      border-color: rgba(56, 189, 248, 0.8);
-      color: #e0f2fe;
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      border-color: rgba(148, 163, 184, 0.4);
-      color: var(--muted);
-    }
-
-    .btn-secondary:hover {
+    .nav-link-btn:hover {
+      border-color: rgba(148, 163, 184, 0.7);
       color: var(--text);
+      background: rgba(15, 23, 42, 0.75);
     }
 
-    .doc-header {
-      margin-bottom: 16px;
+    body.light-theme .nav-link-btn:hover {
+      background: rgba(243, 244, 246, 0.9);
     }
 
-    .doc-title {
+    .nav-link-primary {
+      color: var(--text);
+      border-color: rgba(56, 189, 248, 0.8);
+      background: radial-gradient(circle at 0 0, var(--accent-soft), rgba(15, 23, 42, 0.96));
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
+    }
+
+    .title {
       font-size: 22px;
       font-weight: 600;
       margin-bottom: 6px;
     }
 
-    .doc-meta {
+    .meta {
       font-size: 12px;
       color: var(--muted);
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
       align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
     }
 
-    .tag-pill {
-      font-size: 11px;
+    .meta-tag {
       padding: 2px 8px;
       border-radius: 999px;
-      border: 1px solid rgba(56, 189, 248, 0.6);
-      color: #bae6fd;
-      background: rgba(8, 47, 73, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 11px;
     }
 
-    .doc-body {
-      margin-top: 10px;
-      padding: 14px 12px;
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border);
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, .9), rgba(15, 23, 42, 1));
+    .content-wrapper {
+      margin-top: 6px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(148, 163, 184, 0.6);
+    }
+
+    /* 富文本内容渲染区域 */
+
+    .doc-content {
       font-size: 14px;
       line-height: 1.7;
-      white-space: pre-wrap;
-      word-break: break-word;
+      color: var(--text);
     }
 
-    .doc-empty {
-      font-size: 14px;
-      color: var(--muted);
-      text-align: center;
-      padding: 40px 10px;
+    .doc-content h1,
+    .doc-content h2,
+    .doc-content h3,
+    .doc-content h4 {
+      margin: 16px 0 8px;
+      font-weight: 600;
     }
 
-    @media (max-width: 768px) {
-      .card { padding: 18px 16px 22px; }
-      .nav { flex-direction: column; align-items: flex-start; gap: 10px; }
-      .nav-actions { align-self: stretch; justify-content: flex-end; }
-      .doc-title { font-size: 20px; }
+    .doc-content h1 { font-size: 22px; }
+    .doc-content h2 { font-size: 20px; }
+    .doc-content h3 { font-size: 18px; }
+    .doc-content h4 { font-size: 16px; }
+
+    .doc-content p {
+      margin: 6px 0;
+    }
+
+    .doc-content ul,
+    .doc-content ol {
+      padding-left: 1.2em;
+      margin: 6px 0;
+    }
+
+    .doc-content li {
+      margin: 2px 0;
+    }
+
+    .doc-content code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 13px;
+      padding: 1px 4px;
+      border-radius: 4px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    body.light-theme .doc-content code {
+      background: #f3f4f6;
+      border-color: rgba(209, 213, 219, 0.9);
+    }
+
+    .doc-content pre {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      overflow-x: auto;
+      margin: 8px 0 10px;
+      white-space: pre;
+    }
+
+    body.light-theme .doc-content pre {
+      background: #f3f4f6;
+      border-color: rgba(209, 213, 219, 0.9);
+    }
+
+    .doc-content a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-style: dotted;
+    }
+
+    .doc-content img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 6px 0;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 60;
+      right: 16px;
+      bottom: 16px;
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.8);
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    body.light-theme .toast {
+      background: #ffffff;
+      color: #111827;
+      border-color: rgba(209, 213, 219, 0.9);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.24);
+    }
+
+    .toast.show {
+      display: inline-flex;
     }
   </style>
 </head>
 <body>
-<div class="shell">
-  <div class="card">
-    <!-- 顶部导航 + 返回 -->
-    <header class="nav">
-      <div class="brand">
-        <div class="avatar">J</div>
-        <div>
-          <div class="brand-text-main">
-            {{ site.title | default: "JQ’s Space" }}
-            <span class="brand-dot"></span>
+  <div class="shell">
+    <div class="card">
+      <header class="nav">
+        <div class="nav-left">
+          <a class="back-btn" href="index.html">
+            <span>←</span><span>返回首页</span>
+          </a>
+        </div>
+        <div class="nav-right">
+          <a class="nav-link-btn nav-link-primary" href="{{ '/' | relative_url }}">
+            <span>🏠</span><span>首页</span>
+          </a>
+          <a class="nav-link-btn"
+             href="https://github.com/{{ site.github_username | default: 'jq666-site' }}"
+             target="_blank" rel="noopener">
+            <span>🐙</span><span>GitHub</span>
+          </a>
+          <button type="button" class="nav-link-btn" id="btn-theme-toggle">
+            <span>🌓</span><span id="theme-toggle-text">主题：深色</span>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <div id="detail-wrapper">
+          <div class="title" id="doc-title">加载中...</div>
+          <div class="meta">
+            <span id="doc-date"></span>
+            <span id="doc-id" style="opacity: .7;"></span>
+            <span id="doc-tags"></span>
           </div>
-          <div class="brand-sub">
-            文档详情 · 来自你的 Cloudflare Worker
+          <div class="content-wrapper">
+            <div class="doc-content" id="doc-content">
+              正在加载内容…
+            </div>
           </div>
         </div>
-      </div>
-      <div class="nav-actions">
-        <button class="btn btn-secondary" id="btn-back">返回</button>
-        <a href="{{ '/' | relative_url }}" class="btn">首页</a>
-      </div>
-    </header>
-
-    <!-- 内容区 -->
-    <section id="doc-container">
-      <div class="doc-header">
-        <h1 class="doc-title" id="doc-title">加载中…</h1>
-        <div class="doc-meta" id="doc-meta"></div>
-      </div>
-
-      <div class="doc-body" id="doc-content">
-        正在加载文档内容…
-      </div>
-    </section>
+      </main>
+    </div>
   </div>
-</div>
 
-<script>
-  // ============ 你在其他地方给 DOCS_API_BASE 赋值 ============
-  // window.DOCS_API_BASE = "https://你的 worker 域名";
-  const API_BASE = window.DOCS_API_BASE || "https://lingering-resonance-6555.aa1348769445.workers.dev";
-  const API_DOCS = API_BASE + "/api/docs";
+  <div class="toast" id="toast">
+    <span id="toast-text">提示</span>
+  </div>
 
-  function getQueryParam(name) {
-    const params = new URLSearchParams(window.location.search);
-    return params.get(name);
-  }
+  <script>
+    // API BASE：和 index.html 一样用 window.DOCS_API_BASE，如果没赋值就相对路径
+    window.DOCS_API_BASE = window.DOCS_API_BASE || "https://lingering-resonance-6555.aa1348769445.workers.dev";
+    const API_BASE = window.DOCS_API_BASE || "";
+    const API_DOCS = API_BASE + "/api/docs";
 
-  function escapeHtml(str) {
-    return (str || "").replace(/[&<>"']/g, function (c) {
-      return {
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-      }[c] || c;
-    });
-  }
-
-  async function loadDocDetail() {
-    const id = getQueryParam("id");
-    const titleEl = document.getElementById("doc-title");
-    const metaEl = document.getElementById("doc-meta");
-    const contentEl = document.getElementById("doc-content");
-
-    if (!id) {
-      titleEl.textContent = "缺少文档 ID";
-      contentEl.className = "doc-empty";
-      contentEl.textContent = "URL 中没有找到 id 参数，无法加载文档。";
-      return;
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      const text = document.getElementById("toast-text");
+      if (!toast || !text) return;
+      text.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2000);
     }
 
-    try {
-      const res = await fetch(API_DOCS);
-      const data = await res.json();
+    // 简单的富文本安全处理：去掉 <script> 和内联 onXXX 事件
+    function sanitizeHtml(html) {
+      if (!html) return "";
+      let out = String(html);
 
-      if (!data.ok) {
-        titleEl.textContent = "加载失败";
-        contentEl.className = "doc-empty";
-        contentEl.textContent = data.error || "未知错误";
-        return;
+      // 去掉 script / style 标签
+      out = out.replace(/<\s*(script|style)[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi, "");
+
+      // 去掉 onXXX 事件（onload / onclick 等）
+      out = out.replace(/\son\w+="[^"]*"/gi, "");
+      out = out.replace(/\son\w+='[^']*'/gi, "");
+      out = out.replace(/\son\w+=([^"'\s>]+)(?=[\s>])/gi, "");
+
+      // 限制 iframe（直接移除）
+      out = out.replace(/<\s*iframe[^>]*>[\s\S]*?<\s*\/\s*iframe\s*>/gi, "");
+
+      return out;
+    }
+
+    function applyThemeFromStorage() {
+      const saved = localStorage.getItem("jq_theme") || "dark";
+      const body = document.body;
+      const label = document.getElementById("theme-toggle-text");
+      if (saved === "light") {
+        body.classList.add("light-theme");
+        label && (label.textContent = "主题：浅色");
+      } else {
+        body.classList.remove("light-theme");
+        label && (label.textContent = "主题：深色");
       }
+    }
 
-      const docs = data.items || [];
-      const doc = docs.find(d => d.id === id);
+    function setupThemeToggle() {
+      const btn = document.getElementById("btn-theme-toggle");
+      if (!btn) return;
+      btn.addEventListener("click", () => {
+        const body = document.body;
+        const label = document.getElementById("theme-toggle-text");
+        const nowLight = !body.classList.contains("light-theme");
+        if (nowLight) {
+          body.classList.add("light-theme");
+          localStorage.setItem("jq_theme", "light");
+          label && (label.textContent = "主题：浅色");
+        } else {
+          body.classList.remove("light-theme");
+          localStorage.setItem("jq_theme", "dark");
+          label && (label.textContent = "主题：深色");
+        }
+      });
+    }
 
-      if (!doc) {
+    function getQueryParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+
+    async function loadDetail() {
+      const id = getQueryParam("id");
+      const titleEl = document.getElementById("doc-title");
+      const dateEl = document.getElementById("doc-date");
+      const idEl = document.getElementById("doc-id");
+      const tagsEl = document.getElementById("doc-tags");
+      const contentEl = document.getElementById("doc-content");
+
+      if (!id) {
         titleEl.textContent = "未找到文档";
-        contentEl.className = "doc-empty";
-        contentEl.textContent = "根据当前 ID 没有找到对应的文档。";
+        contentEl.textContent = "缺少 id 参数。";
         return;
       }
 
-      titleEl.textContent = doc.title || "(无标题)";
+      try {
+        const res = await fetch(API_DOCS + "?id=" + encodeURIComponent(id));
+        const data = await res.json();
 
-      // 时间 & 标签
-      const parts = [];
-      if (doc.createdAt) {
-        const d = new Date(doc.createdAt);
-        parts.push("创建于 " + d.toISOString().slice(0, 10));
-      }
-      if (doc.updatedAt && doc.updatedAt !== doc.createdAt) {
-        const d2 = new Date(doc.updatedAt);
-        parts.push("更新于 " + d2.toISOString().slice(0, 10));
-      }
+        if (!data.ok || !data.item) {
+          titleEl.textContent = "文档不存在";
+          contentEl.textContent = data.error || "未找到对应文档。";
+          return;
+        }
 
-      metaEl.innerHTML = "";
-      if (parts.length) {
-        const span = document.createElement("span");
-        span.textContent = parts.join(" · ");
-        metaEl.appendChild(span);
-      }
+        const doc = data.item;
+        titleEl.textContent = doc.title || "(未命名文档)";
+        const created = doc.createdAt
+          ? new Date(doc.createdAt).toISOString().slice(0, 19).replace("T", " ")
+          : "";
 
-      if (doc.tags && doc.tags.length) {
-        doc.tags.forEach(tag => {
-          const t = document.createElement("span");
-          t.className = "tag-pill";
-          t.textContent = tag;
-          metaEl.appendChild(t);
-        });
-      }
+        dateEl.textContent = created ? ("创建时间：" + created) : "";
+        idEl.textContent = "ID: " + doc.id;
 
-      // 文本内容：为了安全，默认走 textContent（纯文本）
-      contentEl.className = "doc-body";
-      contentEl.textContent = doc.content || "";
-    } catch (err) {
-      console.error(err);
-      titleEl.textContent = "请求异常";
-      contentEl.className = "doc-empty";
-      contentEl.textContent = "网络或服务异常，请稍后再试。";
+        if (doc.tags && doc.tags.length) {
+          tagsEl.innerHTML = doc.tags
+            .map((t) => '<span class="meta-tag">' + t + "</span>")
+            .join("");
+        }
+
+        const safeHtml = sanitizeHtml(doc.content || "");
+        contentEl.innerHTML = safeHtml || "<p>（内容为空）</p>";
+      } catch (e) {
+        console.error(e);
+        titleEl.textContent = "加载失败";
+        contentEl.textContent = "请求异常，请稍后再试。";
+        showToast("加载失败");
+      }
     }
-  }
 
-  // 返回按钮：优先 history.back，退不了就回首页
-  document.getElementById("btn-back").addEventListener("click", () => {
-    // 如果有来源并且同域，走 history.back
-    if (document.referrer && document.referrer.indexOf(location.host) !== -1) {
-      history.back();
-    } else {
-      // 没有历史记录就跳首页
-      window.location.href = "{{ '/' | relative_url }}";
-    }
-  });
-
-  document.addEventListener("DOMContentLoaded", loadDocDetail);
-</script>
+    document.addEventListener("DOMContentLoaded", () => {
+      applyThemeFromStorage();
+      setupThemeToggle();
+      loadDetail();
+    });
+  </script>
 </body>
 </html>
